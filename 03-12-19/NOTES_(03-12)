@@ -1,0 +1,42 @@
+~ Semaphores are able to solve any synchronization problem, not just mutual
+  exclusion
+	~ Still, they are archaic and hard to implement and therefore rarely used
+		~ Monitors are just as capable as semaphores, but much less error-prone
+
+~ A semaphore initialized to 1 only allows 1 process, essentially meaning
+  mutual exclusion is in place
+	~ In the provided solution to the bounded-buffer producer/consumer problem
+	  using semaphores, 'e' is initialized to 'sizeofbuffer'
+		~ This means that once 'sizeofbuffer' (or in this case 10) terms are
+		  added to the buffer by a producer, then 'e' will block any further
+		  append()'s since they would overflow the buffer
+
+~ Strong semaphore: A semaphore which executes processes in the it's queue in a
+					 FIFO order (First in first out)
+~ Weak semaphore: A semaphore which executes processes in an unspecified order
+
+~ Back to Monitors
+	~ Java uses monitors; C uses pthreads, which are rather similar to monitors
+	~ A monitor can be thought of as a class in which only one process may be
+	  running in a method at any given time (mutual exclusion)
+		~ Another process that attempts to enter the method will be blocked,
+		  and later allowed entry whenever the current process leaves the method
+	~ Monitors support synchronization through the use of 'condition variables'
+	  that are contained and only accessible within the monitor
+		~ These condition variables are used in conjunction with cwait() and
+		  csignal() function calls which are similar to semaphore wait/signal's
+			~ cwait(n) will essentially hold the process until a csignal(n) is
+			  called on a condition variable 'n',  at which point the
+			  waiting process is 'released' and continues execution
+
+~ Readers/Writers Problem
+	~ A data area is shared among many processes, some of which read data and
+	  some of which write data. Any number of readers may simultaneously read the
+	  the file, but only one writer at a time may write to the file. Furthermore,
+	  if a writer is writing to the file, no reader may read it.
+		~ The first solution allows many readers to access the file continuously
+	  	  while blocking any writers until all readers are done.
+			~ It is worth noting that, since readers have priority, a writer may
+			  become starved
+		~ The second solution is similar, but instead gives writers priority
+			~ Requires 5 semaphores as opposed to 2 in the previous solutions

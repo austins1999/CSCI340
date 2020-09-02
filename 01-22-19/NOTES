@@ -1,0 +1,74 @@
+
+~ Makefile
+	~ Keeps track of file dependancies and rules, allowing you to
+	  "build" a project
+	~ Multiple parts (seperated by blank lines)
+	~ Part 1:
+		~  ex1 : ex1.o
+		         gcc -g ex1.o -o ex1
+
+		~ ex1 = What we want produced
+		~ ex1.o = What it depends on (can be many files)
+		~ gcc [...] ex1 = Command to produce the file (ex1)
+		~ Section in the middle  (ex1.o)  lists ALL dependancies
+		  declared on line 1
+	~ Part 2:
+		~  ex1.o : ex1.c
+		   		   gcc -Wall -g -c ex1.c
+
+		~ Same breakdown as above, but  -c  prevents the program from
+		  LINKING (ie it only COMPILES), see [Compile and link]
+	~ Part 2 is repeated for each dependancy declared in Part 1
+	~ Compilations in Part 2 might have their own dependancies as well
+
+~ Compile and link
+	~ The previous  gcc -Wall -g ex1.c -o ex1  command is actually
+	  TWO commands (the compile and the link)
+		~ ex1.c -> ex1.o
+			~ Code is COMPILED to an object file
+		~ ex1.o -> ex1
+			~ Code is then LINKED with the required libraries
+	~ Code can be linked dynamically or statically
+		~ Dynamic - Libraries are linked at runtime
+		~ Static - All libraries are linked at before code is run
+		~ Static is Better for compatability,
+		  but takes up more space than dynamic
+	
+~ Cache RAM
+	~ Dynamic and Static RAM 
+		~ Static (SRAM): Made out of gates; more expensive
+		~ Dynamic (DRAM): Typical main memory due to lower cost
+	~ Split cache
+		~ Code cache and Data cache (think of seperation from CSCI250)
+			~ Code contains code, data contains data
+	~ Cache acts as an intermediary b/w processor and main memory
+	~ Block: Contiguous chunk of memory
+		~ Tag: ID # used to identify a block
+		~ Line: Combination of a block and its tag
+	~ If you mask off the least-significant bit (rightmost bit) of an
+	  address, then you get a block that can store 2 words
+		~ If you mask the last TWO least-significant bits, then you get
+		  a block that can store 4 words
+		~ Last THREE gives you a block of 8 words, etc, etc
+	~ Hit: When you go to cache and find the desired data
+	~ Miss: When the desired data is not in cache and you must go to 		  next memory level
+	~ A cache system is defined by 6 traits
+		~ 1) Size of the cache
+		~ 2) Size of a block
+			~ Gives number of lines when combined w/ size of cache
+		~ 3) Number of caches
+		~ 4) Mapping function
+			~ Link b/w block's address in memory & its location in cache
+		~ 5) Replacement algorithm
+			~ Method used to figure which block to remove from cache in
+			  order to free up a line
+		~ 6) Write policy
+			~ How the processor writes data to cache so that main memory
+			  eventually gets updated
+
+
+
+
+
+
+

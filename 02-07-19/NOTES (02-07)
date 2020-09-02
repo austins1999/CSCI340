@@ -1,0 +1,28 @@
+
+~  fork()  creates an exact copy of the process that calls it
+	~ Child has same code, data, and stack as its parent
+
+~ When a process forks, the parent gets the child's pid as a return
+  value while the child gets a 0
+	~ OS uses this info to decide which process to run
+		~ The two processes could also be run in parallel on multicore
+		  systems
+	~ If the process fails to fork, you will get a -1
+
+~  wait(NULL)  will cause the parent process to "sleep" until the child
+  changes its state
+	~ Most frequently, said change of state is the termination of the
+	  child process
+~  sleep(#)  will cause the process to sleep for the specified # of time
+	~ Due to the parent's wait(), the parent will always finish last
+
+~ Once a child process finishes its function, it will remain as a Zombie
+  until the parent wakes up from memory
+	~ Zombies aren't being used, but they are taking up system resources
+	~ Both an exit() call or a function's return() call will finish the
+	  process
+
+~ After a fork, it is unspecified which process goes next
+	~ It can be parent or child; you can't count on either
+	~ This is to alleviate any extra stress from the dispatcher; if the
+	  order is unspecified, then a scheduler is not needed

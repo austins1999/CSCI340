@@ -1,0 +1,96 @@
+
+~ Sockets act as connections for data I/O
+
+~ SIGCHLD is sent to the parent once the child dies
+	~ If multiple children send SIGCHLD at same time, then which one(s)
+	  has actually exited?
+		~ If you set all parents to wait(NULL), then you waste resources
+			~ waitpid() can target a certain process
+			~ other variations of wait() exist as well
+	~ The signal handler must reap the proper child upon receiving a
+	  SIGCHLD call
+
+~ SIGINT is just the ^C signal
+	~ In this case, it stops the server
+
+~ Must add some sort of HTML response in server code for the browser to
+  display
+
+~ HTTP GET and HTTP POST
+	~  localhost  should work fine for  <server>
+	~  80  or  8080  should work fine for  <port>
+	~ Generally, POST updates info, GET retrieves data
+		~ POST writes to server, GET retrieves from server
+
+~ HTML <form>'s are basic text entry boxes
+	~ Submitting this entry is an example of an HTTP POST
+
+~ "4.0 HTTP Request/Response Message Format"
+	~ sp = space
+	~ cr = carriage return
+	~ lf = line feed
+	~ squigly double lines means  ...  , or "as many as you have"
+	~ Status code = 404, etc.; we want the default "OK" status code
+
+	~ The request/response
+
+~ All the "server" technically does is call accept_client(), create a
+  fork() to execute the task, and then repeat 
+
+~ To creat a fork, you
+	~ Call fork()
+		~ Specifically,  pid = fork();
+	~ Check the returned pid value
+		~ 0 = child
+		~ >0 = parent
+	~ Continue as appropriate
+		~ In this case,
+			~ If 0, process HTML
+			~ If >0, return out of the function
+
+~ The wait() goes in the signal handler
+	~ Therefore the server doesn't have to wait to reap children
+	~ As a result, children are reaped asynchronously
+
+~ Although provided data only includes 2 key/value pairs, make sure it works
+  for more than that as well
+	~ Program will be tested for 3, 4, etc.
+
+
+------2/19------
+
+~ client_address is a struct
+	~ Hence, sizeof() is compiletime and not runtime operation
+~ p1.c has the parent in a loop that calls accept_client(), creating the
+  child processes
+~ Q: Is my fork() in the right place, or should it be before first if statement?
+~ 2 sockets
+	~ Server: The localhost:8888 that listens for input
+	~ Client: Created when accept_client() is called
+	~ Server creates Clients, which are what listen for input
+
+~ When you fork(), you will also be creating a copy of all the files the parent
+  has open
+	~ That is to say, each parent has a pair of 2 sockets as well as each child
+	~ Meaning both the parent and child sockets need to close
+~ To find POST entity body, count the number of cr/lf combos
+	~ \r = carriage return
+	~ \n = line feed
+	~ Characters after body should be cr/lf/NULL
+~ Must adjust buffer size, etc. to handle any number of key/value pairs
+~ If you try to strcpy, etc. into a buffer that is too small, you get an error
+	~ strncpy, etc. limits the number of characters you can copy
+~ Must ensure all Strings are NULL terminated ('\0')
+	~ Thus, in order to store an array you must allocate +1 bigger then the
+	  length in order to handle the '\0' character
+		~ ie for a string of length 20, you need slots to compensate for '\0'
+~ You can have a loop that invokes index() while iterating a pointer value in
+  order to search for a value. If you get NULL, it does not exist.
+~ sprintf() prints results to a variable instead of the terminal
+
+
+
+
+
+
+	

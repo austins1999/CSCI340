@@ -1,0 +1,52 @@
+---CHAPTER 2: OS Overview---
+
+~ Stages of historical operating systems development
+	~ Serial processing: Computers had one program (DOS)
+	~ Simple batch systems: Programs were punched out and fed in one at
+							a time
+	~ Multiprogrammed batch systems: Allowed for alternating b/w batch
+									 programs where possible
+
+~ Muiltprogramming allows the execution of other programs while a
+  program is waiting on operations
+
+~ Time-sharing systems can be used to handle multiple interactive jobs
+	~ Processor time is shared among multiple users who access the
+	  system through terminals
+
+~ A process can be defined as
+	~ A program in execution or an instance of a running program
+	~ Anything that can be executed on a processor
+
+~ Causes of errors
+	~ Improper synchronization
+	~ Failed mutual exclusion
+	~ Nondeterminate program operation
+	~ Deadlocks
+
+~ Virtual memory treats sections of the HDD as main memory
+	~ Only certain aspects are stored in main memory, with more being
+	  fetched from the HDD as needed
+	~ Memory Management Unit (MMU) acts as intermediary b/w processor
+	  and main memory/secondary memory (HDD)
+		~ Enables the use of virtual memory
+
+~ Microkernel vs monolithic kernel
+	~ OSX is a microkernel
+		~ Only a few essential functions are assigned to kernel
+			~ Simplifies implementation and provides flexibility
+	~ Linux is a monolithic kernel
+		~ Kernel functions far exceed the minimum necessary
+			~ More efficient due to not needing to make calls
+
+~ Multiprocessing is where you have two or more processors on one mobo
+	~ Now we typically use multicore processors instead, but the two
+	  concepts can be used in tandem
+
+
+
+
+
+
+
+

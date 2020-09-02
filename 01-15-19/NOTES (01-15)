@@ -1,0 +1,84 @@
+
+~ Include files (ie <stdio.h>) are like packages in Java
+	~ Contain types, function headers, etc.
+	~ No actual instances/variables exist in the .h files
+
+~ What is a  struct {}  ?
+	~ ex: line 6 of ex1.c
+	~ Similar to a class in Java
+	~ Does not have any functions
+	~ HOWEVER, everything is public
+	~ This means external functions can act on a struct
+
+~ In a C function, you want to declare all variables first
+
+~ A string in C is an array of chars that is properly terminated
+	~ ie there must be a  \0  signifying the end of the string
+
+~ printf format specifiers (%)
+	~ %lu - long unsigned  (ie nonnegative integer)
+	~ %d - integer
+	~ %c - character
+	~ %s - string
+	~ %p - pointer
+
+~ sizeof() - built in C function; returns SIZE of an array (NOT length)
+	~ Size is based on length and size of data type
+		~ char = 1 byte,  int = 4 bytes,  etc.
+
+~ You can declare a string literal with the same effect as manually 
+  creating an array of chars
+	~ ie  person.last = "leclerc"
+
+~ malloc() - allows you to allocate memory on the fly
+	~ Memory is located on the heap, as opposed to the stack
+		~ Stack - stores typical function variables and data
+		~ Heap - dynamic storage primarily used for malloc()
+		~ Heap is thoeretically more permanent, as it is not
+		  automatically cleared when leaving a function
+	~ When done with  malloc()  variable, you MUST
+	  free()  the variable to avoid a memory leak
+		~ ex: lines 72 and 114 of ex1.c
+		~ This is b/c there is no garbage collector in C
+
+~ In C, an uninitialized variable picks up random garbage data
+	~ Gives the value of whatever was left in the assigned location
+
+~ To read in a file, use
+
+	FILE* [varname];
+	[varname] = fopen("filename.txt","r");
+
+	~ Check that data is not NULL to ensure file was read correctly
+	~ fclose([varname])  when done working with file
+
+~ Forward declaration - declare a function header at top of code,
+  with the actual function contents located later
+	~ ex: lines 13 and 48 of ex2.c
+
+~ Initializer list - alternate, condensed method of declaring an array
+	~ ie  char last[10] = {'l','e','c','l','e','r','c','\0'};
+
+~ When sending a variable to another function, use a referenced pointer
+  to both conserve space on stack and maintain changes made in function
+	~ ex: line 40 of ex2.c
+	~ Pass by value (variable) VS pass by reference (&variable)
+		~ NOTE: Pass by reference is more appropriately called
+		  pass by pointer due to a schism b/w reference and pointer
+		  in more modern languages
+
+~ An array variable in C is a sort of duality
+	~ It can be treated as a pointer to the array itself,
+	  AND a pointer to just the contents of index 0 of the array
+	~ ex: lines 24/35 and 33/36 of ex2.c
+
+~ (*p_person).first  and  p_person->first  are equivalent
+	~ Shorthand to access an array index value from a pointer
+	~ ex: line 53 of ex2.c
+
+
+
+
+
+
+

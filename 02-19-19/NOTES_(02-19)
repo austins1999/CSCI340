@@ -1,0 +1,22 @@
+
+~ File Descriptor Table
+	~ An array that contains entries
+	~ The index of a file descriptor is its reference
+	~ First three entries are always set
+		~ 0) stdin
+			~ input (ie keyboard)
+		~ 1) stout
+			~ output (ie printf)
+		~ 2) sterr
+			~ error output
+	~ eg) If you read() info to file descriptor 1, it will be output to terminal
+		~ Because position 1 is always stout
+	~ When you create a new item, such as a socket, it is automatically added to
+	  the next available line in the file descriptor table
+		~ When it is removed, such as the socket being closed, the entry is 
+		  removed from the table
+	~ printf() always outputs to position 1
+		~ It is possible to overwrite these 0-2 "predefined" values
+		~ If you overwrite entry 1, then printf() will write directly to a
+		  socket/file/etc. instead of the terminal
+	~ A file descriptor table is shared between a parent and all its children

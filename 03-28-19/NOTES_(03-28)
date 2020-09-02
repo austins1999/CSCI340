@@ -1,0 +1,23 @@
+
+Chapter 6 (cont; starting at slide 37)
+~ Dining Philosophers Problem
+	~ 5 philosophers sit around a table with 5 forks, one between each of them
+	~ They need two forks to eat, but no two philosophers can use the same fork
+	  at once
+	~ Furthermore, there must be no starvation or deadlock
+	
+	~ A csignal() signifies that a fork has been put down, while a cwait() means
+	  a fork has been picked up
+		~ ie when you call a wait, the thread will wait until whoever has the
+		  desired fork puts it down, and then pick it up and continue execution
+		~ These must be called on each fork individually
+
+	~ Deadlock CAN occur
+		~ eg) P4 tries to pick up his forks. He gets left, but right is taken.
+			  This means P0 has the fork, but he may then go to pick up HIS right
+			  fork and find that it too is taken, meaning P1 is trying to eat, 
+			  and so on.
+			~ Although monitors (or the pthread_mutex_lock()) should allow no
+			  more than 1 thread in a method at once, a loophole in this code
+			  means this may not be the case, hence the deadlock
+				~ This is seen in dpsim.c

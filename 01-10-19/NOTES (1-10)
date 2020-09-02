@@ -1,0 +1,90 @@
+
+~ ls = lists files in current directory
+~ cd = changes current directory
+	~ cd.. = go to parent directory
+
+~ stdio.h
+	~ "standard file"; contains all interfaces for input/output
+	  functions
+		~ INTERFACES; ie not implementable code, but "skeletons"
+		  of functions
+
+~ Unlike in Python/Java, in C you must "link in" functions in addition
+  to importing them
+	~ stdio.h is the exception; it auto-links due to its universal
+	  uses
+
+~ Constant variables and programmer-defined data types also go
+  in .h files
+	~ The data types go in, but not the individual instances of the
+	  type
+
+~ Array argv has positions 0 through (argc - 1)
+	~ Position argc is NULL, hence the NullPointerException
+	~ Allows you to search an array without knowing length
+		~ ie search until you hit NULL
+
+~ In C, you should read right -> left to more easily see variable types
+	~ eg) char *s;  is a pointer to a character
+		~ Pointer: The memory address of a piece of data
+	~ eg) char*[] s;  is a sequence (array) of pointers to chars
+		~ These individual pointers to characters actually
+		  point to STRINGS
+			~ Pointer points to first char and goes through
+			  until it reaches NULL, hence forming a String
+			~ Graphical example:
+
+     length = argc = 5		  argv
+			0: * --> 'h', 'e', 'l', 'l', 'o', NULL
+			1: * --> 'm', 'y', NULL
+			2: * --> 'n', 'a', 'm', 'e', NULL
+			3: * --> 'i', 's', NULL
+		argc-1	4: * --> 'S', 'a', 'm', NULL
+		argc	5: NULL
+
+		~ Hence why  char*[] argv;  is the same as  char** argv;
+			~ argv is a pointer to a pointer to a character
+
+~ Pointer type matters as they will be doing different operations
+	~  char* p;  is not the same as  int* p;
+
+~ Make main() with return type int as a form of error testing
+	~ eg) Have if statements testing for errors, and if one
+	      is found, return a unique number
+
+~ To compile:
+		cc -Wall -g [Program Name].c -o [Program Name]
+	~ cc  is the same as  gcc
+	~ -Wall  and  -g  are used for debugging purposes
+	~ -o [Program Name]  dictates output, overwriting 
+	  the default a.out
+~ To run:
+		./[Program Name]
+
+~ & gives the address of a variable (Reference Operator)
+	~ eg) GIVEN
+	      int x; int *px;
+	      AND
+	      px = &x;
+	      THEN
+	      The value of px becomes the address of x
+
+~ * does the opposite (Dereference Operator)
+	~ eg) GIVEN
+	      int x; int *px;
+	      AND
+	      *px = 11;
+	      THEN
+	      The value of x becomes 11
+
+~ The location of  *  does not matter
+	~ char *s;  is the same as  char* s;
+
+~ \0  is the  NULL  character
+
+
+
+
+
+
+

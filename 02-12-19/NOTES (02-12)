@@ -1,0 +1,15 @@
+
+~ Processes can send Signals
+	~ Signals are 16bit numbers (shorts)
+	~ Convey messages about process execution to the kernel, containing
+		1) Signal name
+		2) Numeric value
+		3) Action (terminate, ignore, continue, stop, etc.)
+		4) Comment (describes meaning/purpose of signal)
+	~ Some can be ignored, others can't
+		~ eg) If SIGKILL is called, the process is always killed
+
+~ Signal handlers
+	~ You can write your own handlers for certain signals, overriding
+	  the default handlers
+		~ Can't override unignorable signals like SIGKILL

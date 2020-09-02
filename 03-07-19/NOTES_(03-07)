@@ -1,0 +1,38 @@
+~ [Continuing from Hardware Inclusions - Compare&Swap]
+~  xhgc  function exchanges data
+	~ Either (mem, mem) or (mem, reg)
+	~ Like Compare&Swap, its atomic and therefore guarantees mutual exclusion
+	~ We won't use this operation directly (unless you happen to be writing a
+	  low-level program like an OS kernel)
+		~ Instead we'll use this indrectly(?)
+
+~ Semaphore: A variable that has an integer value upon which only 3 operations
+			 are defined
+	~ 1) Initiliaze (to a nonnegative integer)
+	~ 2) Decrement (semWait) (semWaitB for binary_semaphore)
+	~ 3) Increment (semSignal) (semSignalB for binary_semaphore)
+	~ A binary_semaphore can only have a value of 0 or 1
+	
+~  parbegin()  is like a for loop that creates however many threads you specify
+	~ ie) parbegin(P(1), P(2), P(3)) would create 3 threads
+~  take()  takes date off of the buffer/queue
+
+~ Serialization: What occurs when multiple threads that are running in parallel
+  hit a critical section, since only one can execute the section at a time
+~ Producer/Consumer Problem
+	~ One or more threads producers generating data and placing it on a buffer,
+	  with a single consumer taking data out of the buffer one at a time, but
+	  only one entity may access the buffer at a given time (ie mutual exclusion)
+
+~ Bounded buffer: Buffer with a fixed size; typically implemented with a circular
+				  array
+	~ Alternatively, you could have an "Infinite buffer"
+
+~ Monitor: A programming language construct that provides equivalent
+		   functionality to that of semaphores and is easier control
+	~ Properties of a monitor:
+		~ Local data variables are accessible only by the monitor's procedures
+		  and not by any external procedures
+		~ A process enters the monitor by invoking one of its procedures
+		~ Only one process may be executing in the monitor at a time
+	~ NOTE: A monitor is similar to a class, and its procedures are functions

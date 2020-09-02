@@ -1,0 +1,87 @@
+---Chapter 3: Processes---
+
+~ Forks are used to create processes in C
+	~ When a process calls a fork(), the OS...
+		1) Allocates a slot in the process table for the new process
+		2) Assigns a unique pID to the child process
+		3) Makes a copy of parent's process image, with the exception of
+		   any shared memory
+		4) Increments counters for any files owned by the parent to
+		   reflect that an additional process now also owns these files
+		5) Assigns the child process to the Ready to Run state
+		6) Returns the ID of the child to the parent process, and a 0 to
+		   the child process
+	~ After the creation process, the kernel can do one of the following
+		1) Stay in the parent process, with control returning to user
+		   mode at the point of the fork call
+		2) Transfer control to the child process, beginning at the
+		   return of the fork call
+		3) Transfer control to another process, placing both the
+		   parent and child processes in the Ready to Run state
+
+~ Information on processes is stored in process control blocks
+	~ PCB is called task_struct in the Linux kernel
+		~ In the task_struct, the stack variable is type void*
+			~ Allows it to act as a pointer to any data type, with the
+			  caveat being that you must cast it as the desired type
+			  whenever used (ie int*, char*, etc.)
+
+~ State process diagram
+	~ Two-state process model
+		~ Running, Not running
+		~ --ENTER-->[Not Running]--DISPATCH-->[Running]--PAUSE/EXIT-->
+			~ The dispatcher is what controls/runs the processes
+	~ Five-state process model
+		~ New, Ready, Running, Blocked, Exit
+		~ A block is cause by a process waiting for an I/O operation
+	~ Six-state process model
+		~ New, Ready, Running, Blocked, Suspend, Exit
+	~ Seven-state process model
+		~ New, Ready, Running, Blocked, Ready/suspend, Blocked/suspend,
+		  Exit
+	~ **UNIX Process State Transition Diagram**
+	
+~ Process creation
+	~ All processes have a parent process, and any parent has a child
+
+~ Processes are suspended due to memory constraints
+	~ Algorithms are used to decide which process to suspend
+		~ ie one waiting for an I/O operation, etc.
+
+~ Memory tables
+	~ Used to keep track of main (real) and secondary (virtual) memory
+		~ Virtual memory holds processes that aren't actively running
+		  but are pertinent or may be needed soon
+
+~ I/O tables
+	~ Used by OS to manage I/O devices and they're interaction w/ the PC
+
+~ Process tables
+	~ Necessary for the management of processes
+	~ Must include references to memory, I/O, and files either directly
+	  or indirectly
+
+~ Process control structures
+	~ see slides
+
+~ Modes of execution
+	~ User mode vs. system mode
+
+~ Process creation
+	1) Assign a process idetifier
+	2) Allocate space for process
+	3) Initialize process control block
+	4) Set appropriate linkages (parent, child, etc.)
+	5) Create any other necessary data structures
+
+~ Mechanisms for interrupting a process
+	~ Interrupt
+	~ Trap
+	~ Supervisor call
+
+~ UNIX SVR4
+	~ Essentially a case study on the concepts of chapter 3
+
+
+
+

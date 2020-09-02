@@ -1,0 +1,17 @@
+
+~ When you fork a process, a COPY of the data is created
+~ When you create a new thread, the data is SHARED
+	~ The exception to this is the thread stack, which is unique for each thread
+~ task_struct() is the name for a process control block in the Linux kernel
+~ Transfer of control from one Kernel-level thread to another in the same process
+  requires a switch to kernel mode
+~ An orphan is a zombie whose parent process has been terminated
+~ malloc() is a system call, and therefore requires kernel mode
+~ If you have a wait(0) but theres nothing to wait on, then it is ignored
+
+~ In addition to whats on OAKS, test 1 will also have
+	~ Threads
+	~ Cache memory
+	~ Bitwise & and left shift <<
+	~ The contents of the mutex programs in this folder
+~ The test will NOT have virtual memory

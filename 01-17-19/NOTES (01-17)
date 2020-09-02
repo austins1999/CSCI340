@@ -1,0 +1,13 @@
+
+~ Unlike Java, in C any variable can be passed by reference or value
+	~ Reference sends the actual data, and therefore any changes effect
+	  other functions as well
+	~ Value sends a copy of the data, and therefore any changes will
+	  be made moot after the function call is complete
+	~ NOTE: For a large data structure, it is always better to pass by
+	  reference to conserve memory
+
+~ sizeof()  is a macro, not a function
+
+~ In C, pointing to address 0 actually points to NULL
+	~ Null pointer; works the same as in Java

@@ -1,0 +1,35 @@
+~ More monitors
+	~ NOTE: If a process/thread exists in any method of a monitor, then no other
+			thread can enter any other methods of the monitors
+	~ cwait() - Condition wait
+		~ Blocks a thread and removes it from the method
+	~ csignal() - Condition signal
+		~ Unblocks a thread, allowing it to execute a method
+
+~ In C, '#define [varname]' allows for easy substitution of data
+
+~ pthread()	- Similar to monitors, but not identical
+	~ Contains a 'pthread_mutex_t' and a 'pthread_cond_t'
+	~ pthread_cond_wait() - Has same function as monitor's cwait()
+		~ Takes condition variable and mutex variable
+	~ pthread_cond_signal() - Has same function as monitor's csignal()
+		~ Takes only condition variable
+	~ Unlike monitors, pthread()'s don't have methods in which to ensure mutual
+	  exclusion
+		~ Instead, mutexes are used
+			~ You must explicitly place a LOCK and UNLOCK before and after any
+			  pthread_cond_wait() and pthread_cond_signal()
+				~ Only one thread can be present between these pairs of (UN)LOCKs
+
+	~ [file on OAKS provides good example of all of this]
+		~ The num_concurrent dictates how many threads can exist in the critical
+		  section at any given time
+			~ If it were 1, then and only then would we have mutual exclusion
+	~ NOTE: The 'num_concurrent <= 0' is in a while() and not and if() because
+			a new thread can enter the method and cut it off. If we used an if(),
+			we could end up with an extra thread in the critical sections
+
+~ If you add a > to an execution command, you can output to a file
+	~ eg) ./a.out > junk
+		  This will place the output to a file called 'junk'
+	~ Similarly, a < can be used to read the output back in as a keyboard command

@@ -1,0 +1,27 @@
+
+~ Desirable hardware features
+	~ Memory protection
+	~ Timer
+	~ Privileged instructions
+	~ Interrupts
+
+~ Kernel mode vs. User mode
+~ Basic fault measures
+	~ Reliability  R(t)
+	~ Mean time to failure (MTTF) and Mean time to repair (MTTR)
+	~ Availability
+
+~ Fault tolerance
+	~ Redundancy
+		~ Spatial, temporal, and information redundancies
+	~ OS Mechanisms
+		~ Process isolation
+		~ Concurrency controls
+		~ Virtual machines
+		~ Checkpoints and rollbacks
+
+~ Unix
+	~ Developed at Bell Labs; became operational on a PDP-7 in 1970
+	~ Linus Torvalds created Linux with inspiration from GNU and Unix
+		~ Modular and open source
+		~ Android is also based on Linux

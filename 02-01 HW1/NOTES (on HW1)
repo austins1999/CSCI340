@@ -1,0 +1,21 @@
+
+~2 lines per set in SA
+	~2 bits to represent set
+	~2 more bits at end for offset
+		~tells you which block you want
+	~4 bits for the tag
+
+~for DM
+	~3 bits to identify row in cache
+	~3 bits for the tag
+	~2 bits for the offset
+
+~these bit values are based off the specified size of memory
+	~256 lines in main, 8 lines in cache
+
+~addr_bits is the number of bits in an address
+	~in this case, it will be 8
+
+~def cread (from cache)
+	~if a search is a miss, it moves the tag to cache
+	~if a search is a hit, it increments the counter

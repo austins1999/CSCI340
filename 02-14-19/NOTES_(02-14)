@@ -1,0 +1,85 @@
+
+~ A thread is a unit of dispatching
+	~ Like many program counters running in different places at the same time
+	~ Share code and data between the main process, but have their own stacks
+
+~ Single threaded approaches
+	~ Only one thread of execution exists per process
+	~ eg) MS-DOS
+~ Multithreaded approaches
+	~ Each process can have many threads 
+	~ Most modern machines are multithreaded
+
+~ Whenever a system call is made, the system switches to kernel mode
+	~ Therefore, user stack and kernel stack exist as two seperate entities
+		~ If this weren't the case, the user could unintentionally gain access
+		  to private kernel-only data
+
+~ Like processes, threads have their own individual thread control blocks (TCBs)
+~ When a global variable is changed in one thread, it affects all shared threads
+
+~ Benefits of threads over processes
+	~ Much faster to create
+	~ Much faster to terminate
+	~ Much faster to switch between two currently running threads
+	~ Shared global memory enhances communication efficiency
+
+~ Scheduling and dispatching is done on a thread basis
+~ Most state-information dealing with execution is maintained on a thread-level
+	~ Suspending a process suspends all contained threads
+	~ Killing a process kills all contained threads
+
+~ Thread synchronization
+	~ It is necessary to synchronize the activities of various threads
+		~ Since threads share data, you must ensure no data conflicts occur
+
+~ User Level Threads (ULTs) and Kernel Level Threads (KLTs)
+	~ Most of the time, we'll be discussing KLTs
+	~ Advantages of ULTs
+		~ Can run on any system
+		~ Thread switching doesn't require kernel mode priviledges
+		~ Scheduling can be application specific
+	~ Advantages of KLTs
+		~ Allow multiple threads from the same process on multiple processors
+			~ Why all modern systems use KLTs
+		~ If one thread in a process is blocked, the kernel can schedule another
+		  thread from the same process
+		~ Kernel itself can be multithreaded
+
+~ In Linux, shared threads will all have pointers to a singular task_struct
+~ The  clone()  function allows for the creation of processes, threads, etc.
+	~ Is the basis of  fork()  and what we will be using to create threads
+
+~ A  void*  function signature combined wih a  void*  return type is used to
+  make a function as generic as possible
+	~ By casting a pointer as a void* before sending it to a function, and then
+	  reformatting it on return, the function can take any data type
+	~ To send multiple fields to this function, put them all in a struct and
+	  then dereference them once you enter the function
+	~ These types of functions are necessary for threads
+	~ mutex.c on OAKS is a good example of this in action
+		~ What looks like an infinite loop is not since this is multithreaded.
+		  Due to the presence of multiple threads with shared data, the loop
+		  will exit once the data is changed by another thread
+			~ Look at p0() and p1(); they alternate between one another
+		~  -lpthread  must be added to the end of the compilation command
+			~ Contains libraries necessary for multithreading
+
+~ Critical section: Chunk of code that we want to have only one thread executing
+  at any given time
+	~ ie we want Mutual exclusion in the critical section
+	~ This is to avoid data conflicts
+		~ eg) Two threads assigning different values to a single variable at
+			  the same time, giving an nondeterminate result
+	~ Ideally, however, we want mutual exclusion with no particular pattern
+		~ This is a True Solution, as opposed to a Fake Solution
+		~ This is what makes the concept complex
+
+~ pthread_join() is like a wait() but for threads
+~ pthread_create()
+
+
+
+
+
+

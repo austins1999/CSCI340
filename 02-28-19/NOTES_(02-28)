@@ -1,0 +1,61 @@
+Chapter 5 - Concurrency: Mutual Exclusion and Synchronization
+
+~  top  terminal command displays all running processes
+	~ Processes beginning with a 'k' are typically kernel processes
+~ Theoretically, concurrency/mutual exclusion/synchronization don't matter if
+  all processes are only reading, but realistically this is highly improbably
+
+~ Distributed processing - Multiprocessing, but across a network of multiple
+  connected systems
+~ Atomic operation - A function implemented as a sequence of one or more
+  instructions that are indivisiblty as a group
+	~ Think atomicity; Either all will execute or none will
+~ Critical section - Piece of code that must not be executed by more than one
+  process at any given time
+~ Deadlock - When two or more processes are unable to proceed because they each
+  are waiting for one of the others to do something
+~ Livelock - When two or more processes continuously change their states in
+  response to changes in other processes, without doing anything useful
+~ Mutual exclusion - The requirement that when one process is in a critical
+  section that accesses shared resources, no other process can be in a critical
+  section that accesses any of those shared resources
+~ Race condition - When multiple processes read and write a shared data item and
+  the ultimate result depends on the relative timing of their execution
+~ Starvation - When a runnable process is overlooked indefinitely by the
+  scheduler
+	~ Many schedulers don't work on a first in first out basis. For example, if
+	  a scheduler is priority based, starvation can occur
+
+~ The compiler will move instructions around in  code if it maintains meaning
+	~ This is typically a good thing, but if you absolutely don't want the
+	  compiler to move code then you can use the  volatile  keyword
+~ If you compile your C code with a  -s  you can see the assembly language code
+
+~ Although the algorithm in  attempt1.c  gives mutual exclusion, it isn't
+  perfect because the two threads are FORCED to alternate every cycle
+	~ ie) It always switches between process 1 -> process 0 -> process 1 ...
+	~ Ideally, mutual exclusion will occur in a pattern that is not repeatable
+~  attempt2.c  does not give mutual exclusion
+	~ If it did, count should always end up as 20, but it does not
+	~ This is an example of the race condition
+~  attempt3.c  does not give mutual exclusion
+	~ The flags cause an infinite loop
+	~ This is an example of deadlock
+~  attempt4.c  does not give mutual exclusion
+	~ Same issue as attempt2; this is an example of the race condition
+~  dekker.c  also does not work
+~  peterson.c  DOES work(!!)
+~ HOWEVER, none of the above algorithms are really used today
+
+~ Mutual exclusion: Hardware support
+	~ Interrupt Disabling
+		~ Essentially, disable and reenable interrupts when in the crit section
+		~ Disabling interrupts does have major drawbacks, however
+		~ Plus, it doesn't work on multicore processors
+	~ Compare&Swap instruction
+		~ A  compare  is made between memory and a test value. If the values
+		  are the same, a  swap  occurs
+
+
+
+

@@ -1,0 +1,65 @@
+~ [Picking back up with the dining philosopher problem and dpsim.c]
+~ Options to deal with deadlock
+	~ 1) Try to pick up and put down both forks at same time, meaning deadlock
+		 can't occur. The only downside is that most forks MUST be available for
+		 either one to be picked up.
+			~ Relatively simple and easy to code
+	~ 2) Preemption; If one philospher has their left fork and the philospher
+		 to their left picks up his right fork, then the initial philosopher
+		 preempts this, forcing the second philospher to put the fork down and
+		 the first to pick it up.
+			~ Harder to code, so we won't worry about it
+	~ 3) Put some sort of ordering/ranking on the resources (ie the forks). This
+		 will prevent the issue we had where everyone picked up their left forks.
+		 Basically, keep everyone picking up the left fork first, but have
+		 philosopher 4 pick up their RIGHT fork first. This will break the cycle,
+		 preventing deadlock.
+			~ Whereas before we merely had a left and right fork variable, now
+			  we add a temp variable to allow us to swap them when left > right
+				~ left > right ONLY when we are on philosopher 4, as his forks
+				  are 4 and 0
+					~ ie only philosopher 4's forks are swapped, meaning he picks
+					  his right fork up before his left
+			~ This solution is implemented in dpsimNODL.c
+				~ The only change is in the get_forks() function
+
+~ Midterm #10
+	~ You get "HiHi" since there is no "\n" at the end of the print, meaning the
+	  data is sent to the buffer instead of to the screen. In this case, the
+	  buffer is not flushed until the return statement, which is called by both
+	  the parent and the child
+~ Midterm #11
+	~ 0 = child, 1 = parent [actually nonzero, but is True either way]
+	~ Therefore, only when you have the parent of both of the if() statement's
+	  fork()'s will evaluate to True and enter the statement, and since there is
+	  another fork() in here you end up with "hello" printed twice.
+~ Midterm #2
+	~ hardware sol 1: Interrupts, but only works on single-core machines
+	~ hardware sol 2: Compare&Swap, but requires "busy-waiting"
+~ Midterm #1
+	~ a) smallest = 50, eg when both are updating at the same time
+			CORRECTION; smallest = 2
+		 largest = 100, eg when they never update at the same time
+	~ b) Yes, anything between 2-100 is possible
+	~ c) smallest = largest = 100
+~ Midterm #15
+	~ See file descriptor table notes
+		~ By default, 0=stdin, 1=stdout, 2=stderr
+		~ If you replace stdout with a file (ie close(1), then open(file.txt)),
+		  then printing will print to the file and not the terminal
+			~ print() is really just a write() that always prints to fd[1],
+			  which is stdout by default
+	~ close() clears that position
+	~ pipe() creates x file descriptors & puts them in first x available slots
+	~ dup() creates a clone of the specified fd in next available slot
+	~ a) 0=stdin 1=stdout 2=stderr
+	~ b) 0=stdin 1=fd[0] 2=stderr 3=fd[1]
+	~ c) 0=stdin 1=stdout 2=stdout
+~ Midterm #5
+	~ printf() i/o system call pattern example
+		~ User running -> Kernel running -> Asleep in memory -> R2R in memory --
+		  --> Kernel running -> User running
+	~ fork() is not i/o, so it goes
+		~ User running -> Kernel running -> R2R in memory -> Kernel -> User
+	~ When you exceed the time quantum while in user mode:
+		~ User running -> Kernel -> Preempted -> R2R in memory -> Kernel -> User

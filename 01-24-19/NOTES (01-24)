@@ -1,0 +1,59 @@
+
+~ Cache RAM (cont.)
+	~ Types of mapping functions
+
+		~ 1) Direct mapping
+			~ Assign each block to a specific line in cache
+				~ Not all blocks in memory can fit in cache, so you
+				  stagger to appeal to principle of locality
+			~ Ex: If cache has 512 lines, then
+				  Line 0 stores block 0, block 512...
+				  Line 1 stores block 1, block 513...
+				  [...]
+				  Line 511 stores block 511, block 1023...
+			~ An address is broken up into tag, line, and word
+				~ <--t bits--><---l bits---><-w bits->
+				  <---tag----><----line----><--word-->
+			~ Tag is stored in cache AND sent with data requests to
+			  verify it is the data you're looking for, since w/ direct
+			  mapping multiple items will be mapped to the same line
+
+		~ 2) Fully associative mapping
+			~ Not lines; just tag and word
+				~ <----t bits----><-w bits->
+			~ Any block can be stored anywhere in cache
+			~ Always checks entire cache as a result
+				~ Is actually still fast b/c it checks all tags at
+				  the same time, in parallel
+					~ This is a costly operation, though
+			~ Replacement algorithm is also more complicated, because 
+			  principal of locality no longer applies
+
+		~ 3) Set associative mapping
+			~ Middle ground b/w direct and fully associative mapping
+			
+
+	~ Types of replacement algorithms
+		~ Least Recently Used (LRU)
+			~ Requires a timestamp whenever data is used
+		~ First In First Out (FIFO)
+			~ Requires a timestamp whenever data is added to cache
+		~ Least Frequently Used (LFU)
+			~ Requires a use counter
+		~ Random
+
+~ int & int  - bitwise AND
+	~ 0+0=0, 0+1=0, 1+1=1
+	~ Only with ints on either side; the & does a different operation
+	  depending on what is on its sides
+~ int | int  - bitwise OR
+~ int >> int  - Right shift
+	~ Shifts variable on the left by number of bits defined on right
+	~ eg) y = 0001000;
+		  y = y >> 3;
+		  y is now 0000001
+
+
+
+
+
